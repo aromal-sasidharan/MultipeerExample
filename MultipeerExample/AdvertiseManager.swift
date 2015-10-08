@@ -15,14 +15,14 @@ class AdvertiseManger:NSObject{
     private let serviceIdenfier = "GhostMaster"
     private let myPeerId = MCPeerID(displayName: UIDevice.currentDevice().name)
     var advertiser : MCNearbyServiceAdvertiser?
-    private var session : MCSession?
-    init(session : MCSession){
+   
+    override init(){
         
         super.init()
         advertiser = MCNearbyServiceAdvertiser(peer: myPeerId, discoveryInfo: nil, serviceType: serviceIdenfier)
         advertiser?.delegate = self
         
-        self.session = session
+        
         
         
     }
@@ -55,7 +55,7 @@ extension AdvertiseManger : MCNearbyServiceAdvertiserDelegate{
         
         print("Did receive invitation from peer")
         
-        invitationHandler(true,self.session!)
+        invitationHandler(true,GhostChatSession.sharedSession)
         
         
     }

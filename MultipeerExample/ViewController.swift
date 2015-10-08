@@ -10,7 +10,7 @@ import UIKit
 import LoggerFrameWork
 class ViewController: UIViewController {
 
-    var sessionManager : SessionManager?
+    
     var advertiser:AdvertiseManger?
     var browser : BrowserManager?
     
@@ -19,6 +19,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
+        Logger.enableLog(true)
         Logger.setTextView(loggerTextView)
         
         
@@ -26,13 +29,38 @@ class ViewController: UIViewController {
         
         
         
-        sessionManager  = SessionManager()
         
-        let session = sessionManager?.session
-        advertiser = AdvertiseManger(session: session!)
-        browser = BrowserManager(session: session!)
+        
+       
+        advertiser = AdvertiseManger()
+        browser = BrowserManager()
         
         browser?.startBrowsing()
+        
+        
+        
+        GhostChatSession.sharedSession.onSessionUpdate({ (session, peerID, state) -> () in
+            
+             NSLog("%@","peer \(peerID) didChangeState: \(state.stringValue())")
+            
+            }, reciveData: { (session, data, peerID) -> () in
+                
+                 print("didReceiveData: \(data)")
+                
+            }, reciveStream: { (session, stream, streamName, peerID) -> () in
+ 
+                 print("reciveStream")
+                
+            }, finishReceiving: { (session, resourceName, peerID, localURL, error) -> () in
+                
+                print("finishReceiving \(resourceName)")
+                
+                
+            }) { (session, resourceName, peerID, progress) -> () in
+                
+                
+                print("didStartReceivingResourceWithName \(resourceName)")
+        }
         
         
         // Do any additional setup after loading the view, typically from a nib.

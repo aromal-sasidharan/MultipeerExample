@@ -15,13 +15,13 @@ class BrowserManager:NSObject{
     private let serviceIdenfier = "GhostMaster"
     private let myPeerId = MCPeerID(displayName: UIDevice.currentDevice().name)
     private var serviceBrowser : MCNearbyServiceBrowser?
-    private var session : MCSession?
-    init(session : MCSession){
+   
+    override init(){
         
         super.init()
         serviceBrowser = MCNearbyServiceBrowser(peer: myPeerId, serviceType: serviceIdenfier)
         
-        self.session = session
+      
         
         serviceBrowser?.delegate = self
         
@@ -47,7 +47,7 @@ extension  BrowserManager : MCNearbyServiceBrowserDelegate{
         
         print("found peer  \(peerID)")
         
-        browser.invitePeer(peerID, toSession: self.session!, withContext: nil, timeout: 10)
+        browser.invitePeer(peerID, toSession: GhostChatSession.sharedSession, withContext: nil, timeout: 10)
         
     }
     
