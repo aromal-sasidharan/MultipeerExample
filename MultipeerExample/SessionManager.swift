@@ -46,7 +46,7 @@ class GhostChatSession:MCSession{
     init(){
         
         super.init(peer: myPeerId, securityIdentity: nil, encryptionPreference: MCEncryptionPreference.None)
-        
+        self.delegate = self
         
     }
     

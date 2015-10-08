@@ -14,6 +14,12 @@ class ViewController: UIViewController {
     var advertiser:AdvertiseManger?
     var browser : BrowserManager?
     
+    @IBAction func sendData(sender: AnyObject) {
+        
+        
+        print(GhostChatSession.sharedSession.connectedPeers)
+        
+    }
     @IBOutlet weak var loggerTextView: JRTranscriptView!
     
     override func viewDidLoad() {
@@ -62,6 +68,9 @@ class ViewController: UIViewController {
                 print("didStartReceivingResourceWithName \(resourceName)")
         }
         
+        
+       
+       
         
         // Do any additional setup after loading the view, typically from a nib.
     }

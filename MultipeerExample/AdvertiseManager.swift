@@ -53,7 +53,7 @@ extension AdvertiseManger : MCNearbyServiceAdvertiserDelegate{
     
      func advertiser(advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: NSData?, invitationHandler: (Bool, MCSession) -> Void){
         
-        print("Did receive invitation from peer")
+        print("Did receive invitation from peer \(peerID)")
         
         invitationHandler(true,GhostChatSession.sharedSession)
         

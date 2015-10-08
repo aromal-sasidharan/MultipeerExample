@@ -48,3 +48,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+public func print(string : String)
+{
+    Logger.log(string)
+}
+
+
