@@ -7,13 +7,13 @@
 //
 
 import UIKit
-
+import LoggerFrameWork
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         return true
@@ -31,6 +31,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+        
+        
+        Logger.log("applicationWillEnterForeground")
+        
     }
 
     func applicationDidBecomeActive(application: UIApplication) {

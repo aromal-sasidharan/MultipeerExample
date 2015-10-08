@@ -1,0 +1,10 @@
+framework module LoggerFrameWork {
+  umbrella header "LoggerFrameWork.h"
+
+  export *
+  module * { export * }
+}
+
+module LoggerFrameWork.Swift {
+    header "LoggerFrameWork-Swift.h"
+}
