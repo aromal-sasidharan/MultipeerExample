@@ -18,7 +18,8 @@ class GhostChatSession:MCSession{
     
     class var sharedSession :GhostChatSession {
         struct Singleton {
-            static let instance = GhostChatSession()
+            static let myPeerId = MCPeerID(displayName: UIDevice.currentDevice().name)
+            static let instance = GhostChatSession(peer: myPeerId, securityIdentity: nil, encryptionPreference: MCEncryptionPreference.None)
         }
         return Singleton.instance
     }
@@ -40,15 +41,8 @@ class GhostChatSession:MCSession{
     
     
     
-    private let myPeerId = MCPeerID(displayName: UIDevice.currentDevice().name)
-    var session : MCSession?
-    
-    init(){
-        
-        super.init(peer: myPeerId, securityIdentity: nil, encryptionPreference: MCEncryptionPreference.None)
-        self.delegate = self
-        
-    }
+      var session : MCSession?
+   
     
     
     

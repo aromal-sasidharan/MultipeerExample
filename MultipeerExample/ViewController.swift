@@ -43,7 +43,8 @@ class ViewController: UIViewController {
         
         browser?.startBrowsing()
         
-        
+       
+
         
         GhostChatSession.sharedSession.onSessionUpdate({ (session, peerID, state) -> () in
             
