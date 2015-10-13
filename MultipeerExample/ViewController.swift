@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     
     var advertiser:AdvertiseManger?
     var browser : BrowserManager?
-    var peerIDs :  [MCPeerID]? = []
+    var peerIDs :  [Int : MCPeerID] = [:]
    
     @IBOutlet weak var loggerTextView: JRTranscriptView!
     
@@ -72,18 +72,22 @@ class ViewController: UIViewController {
     
     func setBrowserUpdater()
     {
-        self.browser?.onPeerUpdate(foundPeer: { (browser, peerID, info) -> () in
+        self.browser?.onPeerUpdate(foundPeer: { (browser, peerID:MCPeerID, info) -> () in
             
             print("Here")
-            
-            self.peerIDs?.append(peerID)
+
+            self.peerIDs[peerID.hashValue] = peerID
             
             self.contactList.reloadData()
+            
+            let peersArray = Array(self.peerIDs.values)
+            
+            print("Peers array \(peersArray)")
             
             }, lostPeer: { (browser, peerID : MCPeerID) -> () in
                 
              
-            self.peerIDs?.removeObject(peerID)
+            self.peerIDs.removeValueForKey(peerID.hashValue)
             self.contactList.reloadData()
         })
     }
@@ -125,10 +129,11 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
         
-        let peerID = self.peerIDs?[indexPath.row]
+        let peers = Array(self.peerIDs.values)
+        let peer = peers[indexPath.row] as MCPeerID
         
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell
-        cell.textLabel?.text = peerID?.displayName
+        cell.textLabel?.text = peer.displayName
 
         return cell;
     }
@@ -136,7 +141,7 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        let count = self.peerIDs?.count ?? 0
+        let count = self.peerIDs.count
         
         print("count \(count)")
         return count
