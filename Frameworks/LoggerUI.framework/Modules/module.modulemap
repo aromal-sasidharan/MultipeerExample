@@ -1,0 +1,10 @@
+framework module LoggerUI {
+  umbrella header "LoggerUI.h"
+
+  export *
+  module * { export * }
+}
+
+module LoggerUI.Swift {
+    header "LoggerUI-Swift.h"
+}

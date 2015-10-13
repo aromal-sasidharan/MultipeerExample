@@ -10,55 +10,60 @@ import Foundation
 import MultipeerConnectivity
 
 
-class BrowserManager:NSObject{
+class BrowserManager:MCNearbyServiceBrowser{
     
-    private let serviceIdenfier = "GhostMaster"
-    private let myPeerId = MCPeerID(displayName: UIDevice.currentDevice().name)
+    typealias FoundPeer = ((browser: MCNearbyServiceBrowser, peerID: MCPeerID, info: [String : String]?)->())
+    typealias LostPeer = (browser: MCNearbyServiceBrowser, peerID: MCPeerID) -> ()
+    
+    
+    var foundPeer:FoundPeer?
+    var lostPeer:LostPeer?
+    
+    
     private var serviceBrowser : MCNearbyServiceBrowser?
-   
-    override init(){
+    
+    override init(peer: MCPeerID, serviceType: String){
         
-        super.init()
-        serviceBrowser = MCNearbyServiceBrowser(peer: myPeerId, serviceType: serviceIdenfier)
+        super.init(peer: peer, serviceType: serviceType)
         
-      
-        
-        serviceBrowser?.delegate = self
+        self.delegate  = self
         
     }
     
     
-    func startBrowsing(){
-        
-        
-        serviceBrowser?.startBrowsingForPeers()
-        
-    }
     
 }
 
 
 extension  BrowserManager : MCNearbyServiceBrowserDelegate{
     
+    func onPeerUpdate(foundPeer foundPeer:FoundPeer, lostPeer:LostPeer){
+        
+        self.foundPeer = foundPeer
+        self.lostPeer = lostPeer
+    }
     
-  
+    
     func browser(browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?){
         
         
         print("found peer  \(peerID)")
+        self.foundPeer?(browser: browser, peerID: peerID, info: info)
         
-        browser.invitePeer(peerID, toSession: GhostChatSession.sharedSession, withContext: nil, timeout: 10)
+        //        browser.invitePeer(peerID, toSession: GhostChatSession.sharedSession, withContext: nil, timeout: 10)
         
     }
     
     func browser(browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID){
         
         print("lost peer  \(peerID)")
+        
+        self.lostPeer?(browser: browser, peerID: peerID)
     }
     
- 
+    
     func browser(browser: MCNearbyServiceBrowser, didNotStartBrowsingForPeers error: NSError){
-           print("bowser error  \(error)")
+        print("bowser error  \(error)")
     }
     
 }

@@ -93,7 +93,7 @@ typedef int swift_int4  __attribute__((__ext_vector_type__(4)));
 #pragma clang diagnostic ignored "-Wduplicate-method-arg"
 @class JRTranscriptView;
 
-SWIFT_CLASS("_TtC15LoggerFrameWork6Logger")
+SWIFT_CLASS("_TtC8LoggerUI6Logger")
 @interface Logger : NSObject
 + (void)setTextView:(JRTranscriptView * __nonnull)uiview;
 + (void)enableLog:(BOOL)flag;

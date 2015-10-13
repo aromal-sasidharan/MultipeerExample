@@ -10,17 +10,17 @@ import Foundation
 import MultipeerConnectivity
 
 
-class AdvertiseManger:NSObject{
+class AdvertiseManger:MCNearbyServiceAdvertiser{
     
-    private let serviceIdenfier = "GhostMaster"
-    private let myPeerId = MCPeerID(displayName: UIDevice.currentDevice().name)
+   
+   
     var advertiser : MCNearbyServiceAdvertiser?
    
-    override init(){
+    override init(peer: MCPeerID, discoveryInfo: [String : String]?, serviceType: String){
         
-        super.init()
-        advertiser = MCNearbyServiceAdvertiser(peer: myPeerId, discoveryInfo: nil, serviceType: serviceIdenfier)
-        advertiser?.delegate = self
+        super.init(peer: peer, discoveryInfo: discoveryInfo, serviceType: serviceType)
+        
+        self.delegate = self
         
         
         
@@ -29,19 +29,10 @@ class AdvertiseManger:NSObject{
     
     
     
-    func startAdvertising(){
-       
-        advertiser?.startAdvertisingPeer()
-    
-    }
-    
-    func stopAdvertising(){
-        advertiser?.stopAdvertisingPeer()
-    }
-    
+ 
     deinit{
         
-        self.stopAdvertising();
+        self.stopAdvertisingPeer();
         
     }
     

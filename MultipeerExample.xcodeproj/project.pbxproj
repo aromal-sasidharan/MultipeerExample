@@ -16,18 +16,21 @@
 		5896CE9F1BC27468007D74B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5896CE9E1BC27468007D74B1 /* Assets.xcassets */; };
 		5896CEA21BC27468007D74B1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5896CEA01BC27468007D74B1 /* LaunchScreen.storyboard */; };
 		5896CEC61BC27481007D74B1 /* MultipeerConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5896CEC51BC27481007D74B1 /* MultipeerConnectivity.framework */; };
-		58EE5C191BC65E14006EF8B5 /* LoggerFrameWork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EE5C181BC65E14006EF8B5 /* LoggerFrameWork.framework */; };
-		58EE5C1A1BC65E14006EF8B5 /* LoggerFrameWork.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 58EE5C181BC65E14006EF8B5 /* LoggerFrameWork.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		58AA2CB21BCCCEE1006E3A9A /* ServiceIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AA2CB11BCCCEE1006E3A9A /* ServiceIdentifier.swift */; settings = {ASSET_TAGS = (); }; };
+		58AA2CC01BCCD49A006E3A9A /* Sample.m in Sources */ = {isa = PBXBuildFile; fileRef = 58AA2CBF1BCCD49A006E3A9A /* Sample.m */; settings = {ASSET_TAGS = (); }; };
+		58AA2D2C1BCD1CC1006E3A9A /* LoggerUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58AA2D2B1BCD1CC1006E3A9A /* LoggerUI.framework */; };
+		58AA2D2D1BCD1CC1006E3A9A /* LoggerUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 58AA2D2B1BCD1CC1006E3A9A /* LoggerUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		58FC69071BCB8BFD00AB0C6C /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FC69061BCB8BFD00AB0C6C /* ArrayExtension.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		58EE5C1B1BC65E14006EF8B5 /* Embed Frameworks */ = {
+		58AA2D2E1BCD1CC1006E3A9A /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				58EE5C1A1BC65E14006EF8B5 /* LoggerFrameWork.framework in Embed Frameworks */,
+				58AA2D2D1BCD1CC1006E3A9A /* LoggerUI.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -51,7 +54,12 @@
 		5896CEB71BC27468007D74B1 /* MultipeerExampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerExampleUITests.swift; sourceTree = "<group>"; };
 		5896CEB91BC27468007D74B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5896CEC51BC27481007D74B1 /* MultipeerConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultipeerConnectivity.framework; path = System/Library/Frameworks/MultipeerConnectivity.framework; sourceTree = SDKROOT; };
-		58EE5C181BC65E14006EF8B5 /* LoggerFrameWork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LoggerFrameWork.framework; path = Frameworks/LoggerFrameWork.framework; sourceTree = "<group>"; };
+		58AA2CB11BCCCEE1006E3A9A /* ServiceIdentifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceIdentifier.swift; sourceTree = "<group>"; };
+		58AA2CBE1BCCD49A006E3A9A /* Sample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sample.h; sourceTree = "<group>"; };
+		58AA2CBF1BCCD49A006E3A9A /* Sample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sample.m; sourceTree = "<group>"; };
+		58AA2CC11BCCD507006E3A9A /* MultipeerExample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MultipeerExample-Bridging-Header.h"; sourceTree = "<group>"; };
+		58AA2D2B1BCD1CC1006E3A9A /* LoggerUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LoggerUI.framework; path = Frameworks/LoggerUI.framework; sourceTree = "<group>"; };
+		58FC69061BCB8BFD00AB0C6C /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,8 +67,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58AA2D2C1BCD1CC1006E3A9A /* LoggerUI.framework in Frameworks */,
 				5896CEC61BC27481007D74B1 /* MultipeerConnectivity.framework in Frameworks */,
-				58EE5C191BC65E14006EF8B5 /* LoggerFrameWork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,7 +78,7 @@
 		5896CE8B1BC27468007D74B1 = {
 			isa = PBXGroup;
 			children = (
-				58EE5C181BC65E14006EF8B5 /* LoggerFrameWork.framework */,
+				58AA2D2B1BCD1CC1006E3A9A /* LoggerUI.framework */,
 				5896CEC51BC27481007D74B1 /* MultipeerConnectivity.framework */,
 				5896CE961BC27468007D74B1 /* MultipeerExample */,
 				5896CEAB1BC27468007D74B1 /* MultipeerExampleTests */,
@@ -100,6 +108,11 @@
 				588BF5D41BC3AB2900F9EA0B /* AdvertiseManager.swift */,
 				588BF5D61BC3C13200F9EA0B /* BrowserManager.swift */,
 				588BF5D81BC3C91000F9EA0B /* SessionManager.swift */,
+				58FC69061BCB8BFD00AB0C6C /* ArrayExtension.swift */,
+				58AA2CB11BCCCEE1006E3A9A /* ServiceIdentifier.swift */,
+				58AA2CBE1BCCD49A006E3A9A /* Sample.h */,
+				58AA2CBF1BCCD49A006E3A9A /* Sample.m */,
+				58AA2CC11BCCD507006E3A9A /* MultipeerExample-Bridging-Header.h */,
 			);
 			path = MultipeerExample;
 			sourceTree = "<group>";
@@ -140,7 +153,7 @@
 				5896CE901BC27468007D74B1 /* Sources */,
 				5896CE911BC27468007D74B1 /* Frameworks */,
 				5896CE921BC27468007D74B1 /* Resources */,
-				58EE5C1B1BC65E14006EF8B5 /* Embed Frameworks */,
+				58AA2D2E1BCD1CC1006E3A9A /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -205,8 +218,11 @@
 				5896CE9A1BC27468007D74B1 /* ViewController.swift in Sources */,
 				588BF5D51BC3AB2900F9EA0B /* AdvertiseManager.swift in Sources */,
 				588BF5D71BC3C13200F9EA0B /* BrowserManager.swift in Sources */,
+				58FC69071BCB8BFD00AB0C6C /* ArrayExtension.swift in Sources */,
 				588BF5D91BC3C91000F9EA0B /* SessionManager.swift in Sources */,
 				5896CE981BC27468007D74B1 /* AppDelegate.swift in Sources */,
+				58AA2CB21BCCCEE1006E3A9A /* ServiceIdentifier.swift in Sources */,
+				58AA2CC01BCCD49A006E3A9A /* Sample.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,6 +351,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.dbg.ex.multipeer.MultipeerExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "092cb24d-1c36-45d5-908b-6bdef79a0577";
+				SWIFT_OBJC_BRIDGING_HEADER = "MultipeerExample/MultipeerExample-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -355,6 +372,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.dbg.ex.multipeer.MultipeerExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "092cb24d-1c36-45d5-908b-6bdef79a0577";
+				SWIFT_OBJC_BRIDGING_HEADER = "MultipeerExample/MultipeerExample-Bridging-Header.h";
 			};
 			name = Release;
 		};

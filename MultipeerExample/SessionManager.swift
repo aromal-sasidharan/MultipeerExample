@@ -18,8 +18,8 @@ class GhostChatSession:MCSession{
     
     class var sharedSession :GhostChatSession {
         struct Singleton {
-            static let myPeerId = MCPeerID(displayName: UIDevice.currentDevice().name)
-            static let instance = GhostChatSession(peer: myPeerId, securityIdentity: nil, encryptionPreference: MCEncryptionPreference.None)
+            
+            static let instance = GhostChatSession(peer: ServiceIdentifier.peerID(), securityIdentity: nil, encryptionPreference: MCEncryptionPreference.None)
         }
         return Singleton.instance
     }
