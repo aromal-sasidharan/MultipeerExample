@@ -14,7 +14,7 @@ import MultipeerConnectivity
 class ServiceIdentifier{
     
     private var name : String{
-        return "GhostMaster"
+        return "GhostChat"
     }
     
     private var peerId:MCPeerID
@@ -30,8 +30,11 @@ class ServiceIdentifier{
     
     init(){
      
+        let uuid = CFUUIDCreate(nil)
+        let uuidString = CFUUIDCreateString(nil, uuid) as String
+        let first = uuidString.characters.split{$0 == "-"}.map(String.init)[0]
+        self.peerId =  MCPeerID(displayName:"\(first)-\(UIDevice.currentDevice().name)")
         
-        self.peerId =  MCPeerID(displayName: UIDevice.currentDevice().name)
     }
     
     class func peerID() -> MCPeerID {

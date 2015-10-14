@@ -12,15 +12,25 @@ import MultipeerConnectivity
 
 class AdvertiseManger:MCNearbyServiceAdvertiser{
     
+    typealias InvitationUpdater = ((advertiser: MCNearbyServiceAdvertiser, peerID: MCPeerID, context: NSData?, invitationHandler: (Bool, MCSession)-> Void)->())
+    typealias ErrorHandler = (advertiser: MCNearbyServiceAdvertiser, error: NSError) -> ()
+    
    
-   
+    
+    var invitationUpdater:InvitationUpdater?
+    var errorHandler:ErrorHandler?
+    
     var advertiser : MCNearbyServiceAdvertiser?
+    
+    
    
     override init(peer: MCPeerID, discoveryInfo: [String : String]?, serviceType: String){
         
         super.init(peer: peer, discoveryInfo: discoveryInfo, serviceType: serviceType)
         
         self.delegate = self
+        
+        
         
         
         
@@ -42,13 +52,21 @@ class AdvertiseManger:MCNearbyServiceAdvertiser{
 // Advertiser Delegate
 extension AdvertiseManger : MCNearbyServiceAdvertiserDelegate{
     
+    
+    
+    func onAdvertiserUpdates(invitationUpdater:InvitationUpdater,errorHandler:ErrorHandler) {
+        self.invitationUpdater = invitationUpdater
+        self.errorHandler = errorHandler
+        
+    }
+    
      func advertiser(advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: NSData?, invitationHandler: (Bool, MCSession) -> Void){
         
-        print("Did receive invitation from peer \(peerID)")
+       
         
-        invitationHandler(true,GhostChatSession.sharedSession)
+//        invitationHandler(true,GhostChatSession.sharedSession)
         
-        
+        self.invitationUpdater?(advertiser: advertiser, peerID: peerID, context: context, invitationHandler: invitationHandler)
     }
     
 
@@ -56,6 +74,8 @@ extension AdvertiseManger : MCNearbyServiceAdvertiserDelegate{
     func advertiser(advertiser: MCNearbyServiceAdvertiser, didNotStartAdvertisingPeer error: NSError){
         
         print("Error in adverstising \(error)")
+        
+        self.errorHandler?(advertiser: advertiser, error: error)
         
     }
     

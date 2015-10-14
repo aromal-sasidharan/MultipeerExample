@@ -20,6 +20,9 @@
 		58AA2CC01BCCD49A006E3A9A /* Sample.m in Sources */ = {isa = PBXBuildFile; fileRef = 58AA2CBF1BCCD49A006E3A9A /* Sample.m */; settings = {ASSET_TAGS = (); }; };
 		58AA2D2C1BCD1CC1006E3A9A /* LoggerUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 58AA2D2B1BCD1CC1006E3A9A /* LoggerUI.framework */; };
 		58AA2D2D1BCD1CC1006E3A9A /* LoggerUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 58AA2D2B1BCD1CC1006E3A9A /* LoggerUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		58B086B91BCE22170048AAC2 /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B086B81BCE22170048AAC2 /* DictionaryExtension.swift */; settings = {ASSET_TAGS = (); }; };
+		58BE143C1BCE757300B08B42 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BE143B1BCE757300B08B42 /* User.swift */; settings = {ASSET_TAGS = (); }; };
+		58BE143E1BCE7CD800B08B42 /* NSDataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BE143D1BCE7CD800B08B42 /* NSDataExtension.swift */; settings = {ASSET_TAGS = (); }; };
 		58FC69071BCB8BFD00AB0C6C /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FC69061BCB8BFD00AB0C6C /* ArrayExtension.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
@@ -59,6 +62,9 @@
 		58AA2CBF1BCCD49A006E3A9A /* Sample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sample.m; sourceTree = "<group>"; };
 		58AA2CC11BCCD507006E3A9A /* MultipeerExample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MultipeerExample-Bridging-Header.h"; sourceTree = "<group>"; };
 		58AA2D2B1BCD1CC1006E3A9A /* LoggerUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LoggerUI.framework; path = Frameworks/LoggerUI.framework; sourceTree = "<group>"; };
+		58B086B81BCE22170048AAC2 /* DictionaryExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryExtension.swift; sourceTree = "<group>"; };
+		58BE143B1BCE757300B08B42 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		58BE143D1BCE7CD800B08B42 /* NSDataExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDataExtension.swift; sourceTree = "<group>"; };
 		58FC69061BCB8BFD00AB0C6C /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -113,6 +119,9 @@
 				58AA2CBE1BCCD49A006E3A9A /* Sample.h */,
 				58AA2CBF1BCCD49A006E3A9A /* Sample.m */,
 				58AA2CC11BCCD507006E3A9A /* MultipeerExample-Bridging-Header.h */,
+				58B086B81BCE22170048AAC2 /* DictionaryExtension.swift */,
+				58BE143B1BCE757300B08B42 /* User.swift */,
+				58BE143D1BCE7CD800B08B42 /* NSDataExtension.swift */,
 			);
 			path = MultipeerExample;
 			sourceTree = "<group>";
@@ -215,13 +224,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58B086B91BCE22170048AAC2 /* DictionaryExtension.swift in Sources */,
 				5896CE9A1BC27468007D74B1 /* ViewController.swift in Sources */,
+				58BE143E1BCE7CD800B08B42 /* NSDataExtension.swift in Sources */,
 				588BF5D51BC3AB2900F9EA0B /* AdvertiseManager.swift in Sources */,
 				588BF5D71BC3C13200F9EA0B /* BrowserManager.swift in Sources */,
 				58FC69071BCB8BFD00AB0C6C /* ArrayExtension.swift in Sources */,
 				588BF5D91BC3C91000F9EA0B /* SessionManager.swift in Sources */,
 				5896CE981BC27468007D74B1 /* AppDelegate.swift in Sources */,
 				58AA2CB21BCCCEE1006E3A9A /* ServiceIdentifier.swift in Sources */,
+				58BE143C1BCE757300B08B42 /* User.swift in Sources */,
 				58AA2CC01BCCD49A006E3A9A /* Sample.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -347,6 +359,7 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = MultipeerExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dbg.ex.multipeer.MultipeerExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -368,6 +381,7 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = MultipeerExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dbg.ex.multipeer.MultipeerExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";

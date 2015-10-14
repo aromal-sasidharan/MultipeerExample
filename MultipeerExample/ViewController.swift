@@ -12,15 +12,15 @@ import MultipeerConnectivity
 import LoggerUI
 
 class ViewController: UIViewController {
-
+    
     @IBOutlet weak var contactList: UITableView!
     
     
     
     var advertiser:AdvertiseManger?
     var browser : BrowserManager?
-    var peerIDs :  [Int : MCPeerID] = [:]
-   
+    var peerIDs :  [String : User] = [:]
+    
     @IBOutlet weak var loggerTextView: JRTranscriptView!
     
     override func viewDidLoad() {
@@ -32,73 +32,113 @@ class ViewController: UIViewController {
         self.contactList.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
         
-
-      
+        
+        
         self.advertiser = AdvertiseManger(peer: ServiceIdentifier.peerID(), discoveryInfo: nil, serviceType: ServiceIdentifier.serviceName())
         self.browser = BrowserManager(peer: ServiceIdentifier.peerID(), serviceType: ServiceIdentifier.serviceName())
         self.advertiser?.startAdvertisingPeer()
         self.browser?.startBrowsingForPeers()
-        self.setBrowserUpdater()
-        GhostChatSession.sharedSession.onSessionUpdate({ (session, peerID, state) -> () in
+        self.setCallbacks()
+        
+        GhostChatSession.sharedSession.onSessionUpdate({ (session:MCSession, peerID:MCPeerID, state:MCSessionState) -> () in
             
-             NSLog("%@","peer \(peerID) didChangeState: \(state.stringValue())")
+            print("peer \(peerID) didChangeState: \(state.stringValue())")
+            
+            if state==MCSessionState.Connected {
+                self.peerIDs[peerID.displayName]?.color = UIColor.greenColor()
+            }
+            else if state == MCSessionState.Connecting{
+                self.peerIDs[peerID.displayName]?.color = UIColor.blueColor()
+            }
+            else{
+                self.peerIDs[peerID.displayName]?.color = UIColor.redColor()
+            }
+            
+            self.reloadTable()
             
             }, reciveData: { (session, data, peerID) -> () in
                 
-                 print("didReceiveData: \(data)")
+                let stringData = data.toStringWithEncoding(NSUTF8StringEncoding)
+                print("didReceiveData: \(stringData)")
                 
             }, reciveStream: { (session, stream, streamName, peerID) -> () in
- 
-                 print("reciveStream")
+                
+                
+                print("reciveStream")
                 
             }, finishReceiving: { (session, resourceName, peerID, localURL, error) -> () in
                 
                 print("finishReceiving \(resourceName)")
                 
-                
             }) { (session, resourceName, peerID, progress) -> () in
                 
-                
                 print("didStartReceivingResourceWithName \(resourceName)")
+                
         }
         
         
-       
-       
+        
         
         // Do any additional setup after loading the view, typically from a nib.
     }
     
+    func sendText(string:String, toPeer peerID:MCPeerID){
+        
+        
+        do{
+            try GhostChatSession.sharedSession.sendString(string, peers: [peerID])
+        }
+        catch let error as NSError{
+            
+            print("Error cannot send data \(error)")
+            
+        }
+    }
     
-    func setBrowserUpdater()
+    
+    func setCallbacks()
     {
-        self.browser?.onPeerUpdate(foundPeer: { (browser, peerID:MCPeerID, info) -> () in
+        self.browser?.onPeerUpdate(foundPeer: { (browser:MCNearbyServiceBrowser, peerID:MCPeerID, info) -> () in
             
-            print("Here")
-
-            self.peerIDs[peerID.hashValue] = peerID
             
-            self.contactList.reloadData()
             
-            let peersArray = Array(self.peerIDs.values)
             
-            print("Peers array \(peersArray)")
+            
+            self.peerIDs[peerID.displayName] = User(peerID: peerID)
+            
+            self.reloadTable()
+            
+            
             
             }, lostPeer: { (browser, peerID : MCPeerID) -> () in
                 
-             
-            self.peerIDs.removeValueForKey(peerID.hashValue)
-            self.contactList.reloadData()
+                
+                self.peerIDs.removeValueForKey(peerID.displayName)
+                self.reloadTable()
         })
+        
+        
+        self.advertiser?.onAdvertiserUpdates({ (advertiser:MCNearbyServiceAdvertiser, peerID : MCPeerID, context:NSData?, invitationHandler : (Bool, MCSession)->Void) -> () in
+            
+            
+            print("Received invitation from peer \(peerID)")
+            invitationHandler(true,GhostChatSession.sharedSession)
+            
+            }, errorHandler: { (advertiser:MCNearbyServiceAdvertiser, error) -> () in
+                
+                print("Error in advertising \(error)")
+                
+        })
+        
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
         
         // Dispose of any resources that can be recreated.
     }
-
+    
     
     
 }
@@ -108,7 +148,7 @@ extension ViewController{
     
     @IBAction func startAdvertise(sender: AnyObject) {
         
-      
+        
     }
     
     @IBAction func sendData(sender: AnyObject) {
@@ -127,14 +167,19 @@ extension ViewController{
 extension ViewController:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-
         
-        let peers = Array(self.peerIDs.values)
-        let peer = peers[indexPath.row] as MCPeerID
+        
+        //        let peers = Array(self.peerIDs.values)
+        //        let peer = peers[indexPath.row] as MCPeerID
+        
+        let user = self.peerIDs.objectValueAtIndex(indexPath.row) as User
         
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell
-        cell.textLabel?.text = peer.displayName
-
+        
+        cell.textLabel?.text = user.peerID.displayName
+        cell.backgroundColor = user.color
+        cell.selectionStyle = UITableViewCellSelectionStyle.None
+        //        cell.selectionStyle = UITableViewCellSelectionStyle.None
         return cell;
     }
     
@@ -148,7 +193,36 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
     }
     
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        let user = self.peerIDs.objectValueAtIndex(indexPath.row) as User
+        
+        print("Clicked peer name is \(user.peerID.displayName)")
+        
+        
+        if user.color == UIColor.redColor(){
+            self.browser?.invitePeer(user.peerID, toSession: GhostChatSession.sharedSession, withContext: nil, timeout: 20)
+        }
+        else if user.color == UIColor.greenColor(){
+            
+            NSOperationQueue.mainQueue().addOperationWithBlock { () -> Void in
+                
+                self.sendText("Hello", toPeer: user.peerID)
+            }
+        }
+        
+        
+        
+    }
     
+    func reloadTable(){
+        
+        NSOperationQueue.mainQueue().addOperationWithBlock { () -> Void in
+            //            self.connectionsLabel.text = "Connections: \(connectedDevices)"
+            self.contactList.reloadData()
+        }
+        
+    }
     
 }
 

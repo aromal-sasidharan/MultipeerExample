@@ -19,11 +19,13 @@ class GhostChatSession:MCSession{
     class var sharedSession :GhostChatSession {
         struct Singleton {
             
-            static let instance = GhostChatSession(peer: ServiceIdentifier.peerID(), securityIdentity: nil, encryptionPreference: MCEncryptionPreference.None)
+            static let instance = GhostChatSession(peer: ServiceIdentifier.peerID(), securityIdentity: nil, encryptionPreference: MCEncryptionPreference.Required)
         }
         return Singleton.instance
     }
-
+    
+    
+    
     
     
     typealias StateChangeBlock = ((session: MCSession, peerID: MCPeerID, state: MCSessionState)->())
@@ -31,19 +33,26 @@ class GhostChatSession:MCSession{
     typealias DidReceiveStreamBlock = ((session: MCSession, stream: NSInputStream, streamName: String, peerID: MCPeerID)->())
     typealias DidFinishReceivingResourceWithNameBlock = ((session: MCSession,  resourceName: String,  peerID: MCPeerID,  localURL: NSURL,  error: NSError?)->())
     typealias DidStartReceivingResourceWithNameBlock = ((session: MCSession,  resourceName: String,  peerID: MCPeerID,  progress: NSProgress)->())
+    typealias ReceivedCertificate = ((session: MCSession, certificate: [AnyObject]?,  peerID: MCPeerID, certificateHandler: (Bool) -> Void)->())
     
     var stateChange:StateChangeBlock?
     var reciveData:DidReceiveDataBlock?
     var reciveStream:DidReceiveStreamBlock?
     var finishReceiving:DidFinishReceivingResourceWithNameBlock?
     var startReceiving:DidStartReceivingResourceWithNameBlock?
+    var certificateReceived:ReceivedCertificate?
     
     
     
+    var session : MCSession?
     
-      var session : MCSession?
-   
-    
+    override init(peer: MCPeerID, securityIdentity: [AnyObject]?, encryptionPreference: MCEncryptionPreference){
+        
+        
+        super.init(peer: peer, securityIdentity: securityIdentity, encryptionPreference: encryptionPreference)
+        
+        self.delegate = self
+    }
     
     
 }
@@ -51,6 +60,15 @@ class GhostChatSession:MCSession{
 extension GhostChatSession : MCSessionDelegate{
     
     
+    func onSessionUpdate(stateChange : StateChangeBlock,reciveData:DidReceiveDataBlock,reciveStream:DidReceiveStreamBlock,finishReceiving:DidFinishReceivingResourceWithNameBlock,startReceiving:DidStartReceivingResourceWithNameBlock,receivedCertificate:ReceivedCertificate){
+        self.stateChange = stateChange
+        self.reciveData = reciveData
+        self.reciveStream = reciveStream
+        self.finishReceiving = finishReceiving
+        self.startReceiving = startReceiving
+        self.certificateReceived = receivedCertificate
+        
+    }
     func onSessionUpdate(stateChange : StateChangeBlock,reciveData:DidReceiveDataBlock,reciveStream:DidReceiveStreamBlock,finishReceiving:DidFinishReceivingResourceWithNameBlock,startReceiving:DidStartReceivingResourceWithNameBlock){
         self.stateChange = stateChange
         self.reciveData = reciveData
@@ -58,16 +76,24 @@ extension GhostChatSession : MCSessionDelegate{
         self.finishReceiving = finishReceiving
         self.startReceiving = startReceiving
         
+        
     }
     
+//    // didReceiveCertificate must be implemented to see the session functioning
+//    func session(session: MCSession, didReceiveCertificate certificate: [AnyObject]?, fromPeer peerID: MCPeerID, certificateHandler: (Bool) -> Void) {
+//        
+//        self.certificateReceived?(session: session, certificate: certificate, peerID: peerID, certificateHandler: certificateHandler)
+//        
+//    }
+    
     func session(session: MCSession, peer peerID: MCPeerID, didChangeState state: MCSessionState) {
-       
+        
         
         self.stateChange?(session : session,peerID : peerID,state : state)
     }
     
     func session(session: MCSession, didReceiveData data: NSData, fromPeer peerID: MCPeerID) {
-       
+        
         
         self.reciveData?(session : session,data : data, peerID : peerID)
     }
@@ -77,17 +103,35 @@ extension GhostChatSession : MCSessionDelegate{
     }
     
     func session(session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, atURL localURL: NSURL, withError error: NSError?) {
-       
+        
         self.finishReceiving?(session: session, resourceName: resourceName,  peerID: peerID, localURL: localURL,  error:error)
     }
     
+    
+    
     func session(session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, withProgress progress: NSProgress) {
-       
+        
         
         self.startReceiving?(session: session,  resourceName: resourceName,  peerID: peerID,  progress: progress)
     }
     
     
+}
+
+// Data Sending Functions
+
+extension MCSession{
+    
+    func sendString(text:String, peers:[MCPeerID])throws -> (){
+        do{
+            
+            try self.sendData(text.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!, toPeers: peers, withMode: MCSessionSendDataMode.Reliable)
+            
+        }
+        catch let error as NSError{
+            throw error
+        }
+    }
 }
 
 extension MCSessionState {

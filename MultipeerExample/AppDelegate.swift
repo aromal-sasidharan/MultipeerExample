@@ -59,7 +59,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 public func print(string : String)
 {
+    NSOperationQueue.mainQueue().addOperationWithBlock { () -> Void in
     Logger.log(string)
+    }
 }
 
 
