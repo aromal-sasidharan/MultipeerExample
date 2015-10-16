@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5850E3D81BD1123600F86871 /* MainQueueExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5850E3D71BD1123600F86871 /* MainQueueExtension.swift */; settings = {ASSET_TAGS = (); }; };
 		588BF5D51BC3AB2900F9EA0B /* AdvertiseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588BF5D41BC3AB2900F9EA0B /* AdvertiseManager.swift */; settings = {ASSET_TAGS = (); }; };
 		588BF5D71BC3C13200F9EA0B /* BrowserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588BF5D61BC3C13200F9EA0B /* BrowserManager.swift */; settings = {ASSET_TAGS = (); }; };
 		588BF5D91BC3C91000F9EA0B /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588BF5D81BC3C91000F9EA0B /* SessionManager.swift */; settings = {ASSET_TAGS = (); }; };
@@ -42,6 +43,7 @@
 
 /* Begin PBXFileReference section */
 		24337B0380C0BEF671C6C254 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5850E3D71BD1123600F86871 /* MainQueueExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainQueueExtension.swift; sourceTree = "<group>"; };
 		588BF5D41BC3AB2900F9EA0B /* AdvertiseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvertiseManager.swift; sourceTree = "<group>"; };
 		588BF5D61BC3C13200F9EA0B /* BrowserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserManager.swift; sourceTree = "<group>"; };
 		588BF5D81BC3C91000F9EA0B /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				58B086B81BCE22170048AAC2 /* DictionaryExtension.swift */,
 				58BE143B1BCE757300B08B42 /* User.swift */,
 				58BE143D1BCE7CD800B08B42 /* NSDataExtension.swift */,
+				5850E3D71BD1123600F86871 /* MainQueueExtension.swift */,
 			);
 			path = MultipeerExample;
 			sourceTree = "<group>";
@@ -230,6 +233,7 @@
 				588BF5D51BC3AB2900F9EA0B /* AdvertiseManager.swift in Sources */,
 				588BF5D71BC3C13200F9EA0B /* BrowserManager.swift in Sources */,
 				58FC69071BCB8BFD00AB0C6C /* ArrayExtension.swift in Sources */,
+				5850E3D81BD1123600F86871 /* MainQueueExtension.swift in Sources */,
 				588BF5D91BC3C91000F9EA0B /* SessionManager.swift in Sources */,
 				5896CE981BC27468007D74B1 /* AppDelegate.swift in Sources */,
 				58AA2CB21BCCCEE1006E3A9A /* ServiceIdentifier.swift in Sources */,

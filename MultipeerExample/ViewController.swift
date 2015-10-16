@@ -45,6 +45,8 @@ class ViewController: UIViewController {
             print("peer \(peerID) didChangeState: \(state.stringValue())")
             
             if state==MCSessionState.Connected {
+                
+                
                 self.peerIDs[peerID.displayName]?.color = UIColor.greenColor()
             }
             else if state == MCSessionState.Connecting{
@@ -54,7 +56,7 @@ class ViewController: UIViewController {
                 self.peerIDs[peerID.displayName]?.color = UIColor.redColor()
             }
             
-            self.reloadTable()
+            self.contactList.reloadData(true)
             
             }, reciveData: { (session, data, peerID) -> () in
                 
@@ -76,7 +78,31 @@ class ViewController: UIViewController {
                 
         }
         
-        
+        GhostMaster.sharedSession.onSessionUpdate({ (session:MCSession, peerID:MCPeerID, state:MCSessionState) -> () in
+            
+            print("peer \(peerID) didChangeState: \(state.stringValue())")
+            
+            
+            
+            }, reciveData: { (session, data, peerID) -> () in
+                
+                let stringData = data.toStringWithEncoding(NSUTF8StringEncoding)
+                print("didReceiveData: \(stringData)")
+                
+            }, reciveStream: { (session, stream, streamName, peerID) -> () in
+                
+                
+                print("reciveStream")
+                
+            }, finishReceiving: { (session, resourceName, peerID, localURL, error) -> () in
+                
+                print("finishReceiving \(resourceName)")
+                
+            }) { (session, resourceName, peerID, progress) -> () in
+                
+                print("didStartReceivingResourceWithName \(resourceName)")
+                
+        }
         
         
         // Do any additional setup after loading the view, typically from a nib.
@@ -106,7 +132,7 @@ class ViewController: UIViewController {
             
             self.peerIDs[peerID.displayName] = User(peerID: peerID)
             
-            self.reloadTable()
+            self.contactList.reloadData(true)
             
             
             
@@ -114,15 +140,25 @@ class ViewController: UIViewController {
                 
                 
                 self.peerIDs.removeValueForKey(peerID.displayName)
-                self.reloadTable()
+                self.contactList.reloadData(true)
         })
         
         
         self.advertiser?.onAdvertiserUpdates({ (advertiser:MCNearbyServiceAdvertiser, peerID : MCPeerID, context:NSData?, invitationHandler : (Bool, MCSession)->Void) -> () in
             
             
+            if let aContext = context{
+                print("Peer has invited with context \(aContext.toStringWithEncoding(NSUTF8StringEncoding))")
+            }
+            
             print("Received invitation from peer \(peerID)")
-            invitationHandler(true,GhostChatSession.sharedSession)
+            
+            if context?.toStringWithEncoding(NSUTF8StringEncoding) == GhostChatSession.context{
+                invitationHandler(true,GhostChatSession.sharedSession)
+            }
+            if context?.toStringWithEncoding(NSUTF8StringEncoding) == GhostMaster.context{
+                invitationHandler(true,GhostMaster.sharedSession)
+            }
             
             }, errorHandler: { (advertiser:MCNearbyServiceAdvertiser, error) -> () in
                 
@@ -154,7 +190,7 @@ extension ViewController{
     @IBAction func sendData(sender: AnyObject) {
         
         
-        print(GhostChatSession.sharedSession.connectedPeers)
+        print(GhostMaster.sharedSession.connectedPeers)
         
     }
     
@@ -200,8 +236,11 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
         print("Clicked peer name is \(user.peerID.displayName)")
         
         
+        
+        
+        
         if user.color == UIColor.redColor(){
-            self.browser?.invitePeer(user.peerID, toSession: GhostChatSession.sharedSession, withContext: nil, timeout: 20)
+            self.browser?.invitePeer(user.peerID, toSession: GhostChatSession.sharedSession, withContext: GhostChatSession.context.dataUsingEncoding(NSUTF8StringEncoding), timeout: 20)
         }
         else if user.color == UIColor.greenColor(){
             
@@ -211,18 +250,16 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
             }
         }
         
+        self.browser?.invitePeer(user.peerID, toSession: GhostMaster.sharedSession, withContext:GhostMaster.context.dataUsingEncoding(NSUTF8StringEncoding), timeout: 20)
+        
+        
+        
+        
         
         
     }
     
-    func reloadTable(){
-        
-        NSOperationQueue.mainQueue().addOperationWithBlock { () -> Void in
-            //            self.connectionsLabel.text = "Connections: \(connectedDevices)"
-            self.contactList.reloadData()
-        }
-        
-    }
+   
     
 }
 

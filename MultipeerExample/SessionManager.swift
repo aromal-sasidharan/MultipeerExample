@@ -10,23 +10,7 @@ import Foundation
 import MultipeerConnectivity
 
 
-
-
-
-
-class GhostChatSession:MCSession{
-    
-    class var sharedSession :GhostChatSession {
-        struct Singleton {
-            
-            static let instance = GhostChatSession(peer: ServiceIdentifier.peerID(), securityIdentity: nil, encryptionPreference: MCEncryptionPreference.Required)
-        }
-        return Singleton.instance
-    }
-    
-    
-    
-    
+class GhostSession:MCSession{
     
     typealias StateChangeBlock = ((session: MCSession, peerID: MCPeerID, state: MCSessionState)->())
     typealias DidReceiveDataBlock = ((session: MCSession, data: NSData, peerID: MCPeerID)->())
@@ -43,9 +27,6 @@ class GhostChatSession:MCSession{
     var certificateReceived:ReceivedCertificate?
     
     
-    
-    var session : MCSession?
-    
     override init(peer: MCPeerID, securityIdentity: [AnyObject]?, encryptionPreference: MCEncryptionPreference){
         
         
@@ -55,9 +36,10 @@ class GhostChatSession:MCSession{
     }
     
     
+    
 }
 
-extension GhostChatSession : MCSessionDelegate{
+extension GhostSession : MCSessionDelegate{
     
     
     func onSessionUpdate(stateChange : StateChangeBlock,reciveData:DidReceiveDataBlock,reciveStream:DidReceiveStreamBlock,finishReceiving:DidFinishReceivingResourceWithNameBlock,startReceiving:DidStartReceivingResourceWithNameBlock,receivedCertificate:ReceivedCertificate){
@@ -79,12 +61,12 @@ extension GhostChatSession : MCSessionDelegate{
         
     }
     
-//    // didReceiveCertificate must be implemented to see the session functioning
-//    func session(session: MCSession, didReceiveCertificate certificate: [AnyObject]?, fromPeer peerID: MCPeerID, certificateHandler: (Bool) -> Void) {
-//        
-//        self.certificateReceived?(session: session, certificate: certificate, peerID: peerID, certificateHandler: certificateHandler)
-//        
-//    }
+    //    // didReceiveCertificate must be implemented to see the session functioning
+    //    func session(session: MCSession, didReceiveCertificate certificate: [AnyObject]?, fromPeer peerID: MCPeerID, certificateHandler: (Bool) -> Void) {
+    //
+    //        self.certificateReceived?(session: session, certificate: certificate, peerID: peerID, certificateHandler: certificateHandler)
+    //
+    //    }
     
     func session(session: MCSession, peer peerID: MCPeerID, didChangeState state: MCSessionState) {
         
@@ -145,5 +127,39 @@ extension MCSessionState {
         }
     }
 }
+
+
+
+
+
+class GhostMaster:GhostSession{
+    
+    
+    static var context:String = "GhostMaster"
+    class var sharedSession :GhostChatSession {
+        struct Singleton {
+            
+            static let instance = GhostChatSession(peer: ServiceIdentifier.peerID(), securityIdentity: nil, encryptionPreference: MCEncryptionPreference.Required)
+        }
+        return Singleton.instance
+    }
+    
+}
+
+
+
+class GhostChatSession:GhostSession{
+    static var context:String = "GhostChat"
+    class var sharedSession :GhostChatSession {
+        struct Singleton {
+            
+            static let instance = GhostChatSession(peer: ServiceIdentifier.peerID(), securityIdentity: nil, encryptionPreference: MCEncryptionPreference.Required)
+        }
+        return Singleton.instance
+    }
+    
+}
+
+
 
 
