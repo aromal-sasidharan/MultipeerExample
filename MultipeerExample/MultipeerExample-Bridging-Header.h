@@ -11,5 +11,6 @@
 
 
 #import "JRTranscriptView.h"
+#import "NSObject+KJSerializer.h"
 
 #endif /* MultipeerExample_Bridging_Header_h */

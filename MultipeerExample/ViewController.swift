@@ -16,13 +16,22 @@ class ViewController: UIViewController {
     @IBOutlet weak var contactList: UITableView!
     
     
+    @IBOutlet weak var chatTextField: UITextField!
     
     var advertiser:AdvertiseManger?
     var browser : BrowserManager?
     var peerIDs :  [String : User] = [:]
-    
+//    var chatArray:[String]=[]
+    var chatArray : NSMutableArray = ["Hello"]
+    @IBOutlet weak var chatTableView: UITableView!
     @IBOutlet weak var loggerTextView: JRTranscriptView!
     
+    @IBAction func sendClicked(sender: AnyObject) {
+        
+        chatArray.addObject(self.chatTextField.text!)
+        self.chatTextField.text=""
+        self.chatTableView .reloadData()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,6 +39,7 @@ class ViewController: UIViewController {
         Logger.setTextView(loggerTextView)
         
         self.contactList.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        self.chatTableView.registerClass(ChatCellTableViewCell.self, forCellReuseIdentifier: "ChatCell")
         
         
         
@@ -207,38 +217,50 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
         
         //        let peers = Array(self.peerIDs.values)
         //        let peer = peers[indexPath.row] as MCPeerID
-        
-        let user = self.peerIDs.objectValueAtIndex(indexPath.row) as User
-        
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell
-        
-        cell.textLabel?.text = user.peerID.displayName
-        cell.backgroundColor = user.color
-        cell.selectionStyle = UITableViewCellSelectionStyle.None
-        //        cell.selectionStyle = UITableViewCellSelectionStyle.None
-        return cell;
+        if(tableView.isEqual(self.chatTableView))
+        {
+            let cell = tableView.dequeueReusableCellWithIdentifier("ChatCell", forIndexPath: indexPath) as! ChatCellTableViewCell
+             cell.textLabel?.text = self.chatArray.objectAtIndex(indexPath.row) as? String
+            return cell;
+        }else{
+            let user = self.peerIDs.objectValueAtIndex(indexPath.row) as User
+            
+            let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell
+            
+            cell.textLabel?.text = user.peerID.displayName
+            cell.backgroundColor = user.color
+            cell.selectionStyle = UITableViewCellSelectionStyle.None
+            //        cell.selectionStyle = UITableViewCellSelectionStyle.None
+            return cell;
+        }
     }
     
-    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        
+    return 1
+    }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        let count = self.peerIDs.count
-        
-        print("count \(count)")
-        return count
+        if(tableView.isEqual(self.chatTableView))
+        {
+            return (self.chatArray.count)
+        }else
+        {
+            let count = self.peerIDs.count
+            
+            print("count \(count)")
+            
+            return count
+        }
     }
     
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
+        if(tableView.isEqual(self.contactList))
+        {
         let user = self.peerIDs.objectValueAtIndex(indexPath.row) as User
         
         print("Clicked peer name is \(user.peerID.displayName)")
-        
-        
-        
-        
-        
         if user.color == UIColor.redColor(){
             self.browser?.invitePeer(user.peerID, toSession: GhostChatSession.sharedSession, withContext: GhostChatSession.context.dataUsingEncoding(NSUTF8StringEncoding), timeout: 20)
         }
@@ -251,30 +273,10 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
         }
         
         self.browser?.invitePeer(user.peerID, toSession: GhostMaster.sharedSession, withContext:GhostMaster.context.dataUsingEncoding(NSUTF8StringEncoding), timeout: 20)
-        
-        
-        
-        
-        
-        
+        }
     }
     
-   
+    
+    
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

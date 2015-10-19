@@ -25,6 +25,9 @@
 		58BE143C1BCE757300B08B42 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BE143B1BCE757300B08B42 /* User.swift */; settings = {ASSET_TAGS = (); }; };
 		58BE143E1BCE7CD800B08B42 /* NSDataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58BE143D1BCE7CD800B08B42 /* NSDataExtension.swift */; settings = {ASSET_TAGS = (); }; };
 		58FC69071BCB8BFD00AB0C6C /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FC69061BCB8BFD00AB0C6C /* ArrayExtension.swift */; settings = {ASSET_TAGS = (); }; };
+		641BFBA61BD4C1680041458E /* ChatCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641BFBA51BD4C1680041458E /* ChatCellTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
+		641BFBA81BD4F0800041458E /* GhostPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641BFBA71BD4F0800041458E /* GhostPacket.swift */; settings = {ASSET_TAGS = (); }; };
+		641BFBAC1BD50D770041458E /* NSObject+KJSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 641BFBAB1BD50D770041458E /* NSObject+KJSerializer.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -68,6 +71,10 @@
 		58BE143B1BCE757300B08B42 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		58BE143D1BCE7CD800B08B42 /* NSDataExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDataExtension.swift; sourceTree = "<group>"; };
 		58FC69061BCB8BFD00AB0C6C /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
+		641BFBA51BD4C1680041458E /* ChatCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatCellTableViewCell.swift; sourceTree = "<group>"; };
+		641BFBA71BD4F0800041458E /* GhostPacket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GhostPacket.swift; sourceTree = "<group>"; };
+		641BFBAA1BD50D770041458E /* NSObject+KJSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+KJSerializer.h"; sourceTree = "<group>"; };
+		641BFBAB1BD50D770041458E /* NSObject+KJSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+KJSerializer.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,13 +114,16 @@
 		5896CE961BC27468007D74B1 /* MultipeerExample */ = {
 			isa = PBXGroup;
 			children = (
+				641BFBA91BD50CB70041458E /* New Group */,
 				5896CE971BC27468007D74B1 /* AppDelegate.swift */,
 				5896CE991BC27468007D74B1 /* ViewController.swift */,
+				641BFBA71BD4F0800041458E /* GhostPacket.swift */,
 				5896CE9B1BC27468007D74B1 /* Main.storyboard */,
 				5896CE9E1BC27468007D74B1 /* Assets.xcassets */,
 				5896CEA01BC27468007D74B1 /* LaunchScreen.storyboard */,
 				5896CEA31BC27468007D74B1 /* Info.plist */,
 				588BF5D41BC3AB2900F9EA0B /* AdvertiseManager.swift */,
+				641BFBA51BD4C1680041458E /* ChatCellTableViewCell.swift */,
 				588BF5D61BC3C13200F9EA0B /* BrowserManager.swift */,
 				588BF5D81BC3C91000F9EA0B /* SessionManager.swift */,
 				58FC69061BCB8BFD00AB0C6C /* ArrayExtension.swift */,
@@ -145,6 +155,15 @@
 				5896CEB91BC27468007D74B1 /* Info.plist */,
 			);
 			path = MultipeerExampleUITests;
+			sourceTree = "<group>";
+		};
+		641BFBA91BD50CB70041458E /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+				641BFBAA1BD50D770041458E /* NSObject+KJSerializer.h */,
+				641BFBAB1BD50D770041458E /* NSObject+KJSerializer.m */,
+			);
+			name = "New Group";
 			sourceTree = "<group>";
 		};
 		E2D35F3C8C6DED2F948754E6 /* Frameworks */ = {
@@ -234,11 +253,14 @@
 				588BF5D71BC3C13200F9EA0B /* BrowserManager.swift in Sources */,
 				58FC69071BCB8BFD00AB0C6C /* ArrayExtension.swift in Sources */,
 				5850E3D81BD1123600F86871 /* MainQueueExtension.swift in Sources */,
+				641BFBA81BD4F0800041458E /* GhostPacket.swift in Sources */,
 				588BF5D91BC3C91000F9EA0B /* SessionManager.swift in Sources */,
+				641BFBAC1BD50D770041458E /* NSObject+KJSerializer.m in Sources */,
 				5896CE981BC27468007D74B1 /* AppDelegate.swift in Sources */,
 				58AA2CB21BCCCEE1006E3A9A /* ServiceIdentifier.swift in Sources */,
 				58BE143C1BCE757300B08B42 /* User.swift in Sources */,
 				58AA2CC01BCCD49A006E3A9A /* Sample.m in Sources */,
+				641BFBA61BD4C1680041458E /* ChatCellTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
