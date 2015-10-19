@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5841B2A81BD4FB3200B6F41F /* WebSocketManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5841B2A71BD4FB3200B6F41F /* WebSocketManger.swift */; settings = {ASSET_TAGS = (); }; };
+		5841B2AC1BD4FC0800B6F41F /* SSLSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5841B2AA1BD4FC0800B6F41F /* SSLSecurity.swift */; settings = {ASSET_TAGS = (); }; };
+		5841B2AD1BD4FC0800B6F41F /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5841B2AB1BD4FC0800B6F41F /* WebSocket.swift */; settings = {ASSET_TAGS = (); }; };
 		5850E3D81BD1123600F86871 /* MainQueueExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5850E3D71BD1123600F86871 /* MainQueueExtension.swift */; settings = {ASSET_TAGS = (); }; };
 		588BF5D51BC3AB2900F9EA0B /* AdvertiseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588BF5D41BC3AB2900F9EA0B /* AdvertiseManager.swift */; settings = {ASSET_TAGS = (); }; };
 		588BF5D71BC3C13200F9EA0B /* BrowserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588BF5D61BC3C13200F9EA0B /* BrowserManager.swift */; settings = {ASSET_TAGS = (); }; };
@@ -46,6 +49,10 @@
 
 /* Begin PBXFileReference section */
 		24337B0380C0BEF671C6C254 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5841B2A31BD4F9FB00B6F41F /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Starscream.framework; path = Frameworks/Starscream.framework; sourceTree = "<group>"; };
+		5841B2A71BD4FB3200B6F41F /* WebSocketManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocketManger.swift; sourceTree = "<group>"; };
+		5841B2AA1BD4FC0800B6F41F /* SSLSecurity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSLSecurity.swift; sourceTree = "<group>"; };
+		5841B2AB1BD4FC0800B6F41F /* WebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocket.swift; sourceTree = "<group>"; };
 		5850E3D71BD1123600F86871 /* MainQueueExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainQueueExtension.swift; sourceTree = "<group>"; };
 		588BF5D41BC3AB2900F9EA0B /* AdvertiseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvertiseManager.swift; sourceTree = "<group>"; };
 		588BF5D61BC3C13200F9EA0B /* BrowserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserManager.swift; sourceTree = "<group>"; };
@@ -90,9 +97,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5841B2A91BD4FC0800B6F41F /* Starscream */ = {
+			isa = PBXGroup;
+			children = (
+				5841B2AA1BD4FC0800B6F41F /* SSLSecurity.swift */,
+				5841B2AB1BD4FC0800B6F41F /* WebSocket.swift */,
+			);
+			name = Starscream;
+			path = Frameworks/Starscream;
+			sourceTree = "<group>";
+		};
 		5896CE8B1BC27468007D74B1 = {
 			isa = PBXGroup;
 			children = (
+				5841B2A91BD4FC0800B6F41F /* Starscream */,
+				5841B2A31BD4F9FB00B6F41F /* Starscream.framework */,
 				58AA2D2B1BCD1CC1006E3A9A /* LoggerUI.framework */,
 				5896CEC51BC27481007D74B1 /* MultipeerConnectivity.framework */,
 				5896CE961BC27468007D74B1 /* MultipeerExample */,
@@ -135,6 +154,7 @@
 				58BE143B1BCE757300B08B42 /* User.swift */,
 				58BE143D1BCE7CD800B08B42 /* NSDataExtension.swift */,
 				5850E3D71BD1123600F86871 /* MainQueueExtension.swift */,
+				5841B2A71BD4FB3200B6F41F /* WebSocketManger.swift */,
 			);
 			path = MultipeerExample;
 			sourceTree = "<group>";
@@ -246,14 +266,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5841B2AC1BD4FC0800B6F41F /* SSLSecurity.swift in Sources */,
 				58B086B91BCE22170048AAC2 /* DictionaryExtension.swift in Sources */,
 				5896CE9A1BC27468007D74B1 /* ViewController.swift in Sources */,
 				58BE143E1BCE7CD800B08B42 /* NSDataExtension.swift in Sources */,
+				5841B2AD1BD4FC0800B6F41F /* WebSocket.swift in Sources */,
 				588BF5D51BC3AB2900F9EA0B /* AdvertiseManager.swift in Sources */,
 				588BF5D71BC3C13200F9EA0B /* BrowserManager.swift in Sources */,
 				58FC69071BCB8BFD00AB0C6C /* ArrayExtension.swift in Sources */,
 				5850E3D81BD1123600F86871 /* MainQueueExtension.swift in Sources */,
+
 				641BFBA81BD4F0800041458E /* GhostPacket.swift in Sources */,
+
+				5841B2A81BD4FB3200B6F41F /* WebSocketManger.swift in Sources */,
+
 				588BF5D91BC3C91000F9EA0B /* SessionManager.swift in Sources */,
 				641BFBAC1BD50D770041458E /* NSObject+KJSerializer.m in Sources */,
 				5896CE981BC27468007D74B1 /* AppDelegate.swift in Sources */,

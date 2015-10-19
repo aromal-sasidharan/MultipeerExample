@@ -11,7 +11,12 @@ import MultipeerConnectivity
 
 class User {
     var color:UIColor = UIColor.redColor()
-    var peerID:MCPeerID
+    var ipaddress = ""
+    var id = ""
+    var peerID:MCPeerID?
+    init(){
+        
+    }
     init(peerID:MCPeerID){
         
         self.peerID = peerID
