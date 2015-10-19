@@ -33,7 +33,7 @@ class WebSocketManger: WebSocket,WebSocketDelegate{
     
     init(){
         
-        super.init(url: NSURL(string:"ws://127.0.0.1:9300")!)
+        super.init(url: NSURL(string:"ws://89.32.150.200:9300")!)
         self.delegate = self
         self.connect()
         

@@ -18,7 +18,7 @@ class ServiceIdentifier{
     }
     
     private var peerId:MCPeerID
-        
+    
     
     private class var sharedManager :ServiceIdentifier {
         struct Singleton {
@@ -33,7 +33,7 @@ class ServiceIdentifier{
         let uuid = CFUUIDCreate(nil)
         let uuidString = CFUUIDCreateString(nil, uuid) as String
         let first = uuidString.characters.split{$0 == "-"}.map(String.init)[0]
-        self.peerId =  MCPeerID(displayName:"\(first)-\(UIDevice.currentDevice().name)")
+        self.peerId =  MCPeerID(displayName:"\(first)-\(UIDevice.currentDevice().shortName)")
         
     }
     

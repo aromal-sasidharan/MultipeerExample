@@ -10,6 +10,7 @@
 		5841B2A81BD4FB3200B6F41F /* WebSocketManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5841B2A71BD4FB3200B6F41F /* WebSocketManger.swift */; settings = {ASSET_TAGS = (); }; };
 		5841B2AC1BD4FC0800B6F41F /* SSLSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5841B2AA1BD4FC0800B6F41F /* SSLSecurity.swift */; settings = {ASSET_TAGS = (); }; };
 		5841B2AD1BD4FC0800B6F41F /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5841B2AB1BD4FC0800B6F41F /* WebSocket.swift */; settings = {ASSET_TAGS = (); }; };
+		5841B2B11BD5188B00B6F41F /* UIDeviceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5841B2B01BD5188B00B6F41F /* UIDeviceExtension.swift */; settings = {ASSET_TAGS = (); }; };
 		5850E3D81BD1123600F86871 /* MainQueueExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5850E3D71BD1123600F86871 /* MainQueueExtension.swift */; settings = {ASSET_TAGS = (); }; };
 		588BF5D51BC3AB2900F9EA0B /* AdvertiseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588BF5D41BC3AB2900F9EA0B /* AdvertiseManager.swift */; settings = {ASSET_TAGS = (); }; };
 		588BF5D71BC3C13200F9EA0B /* BrowserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588BF5D61BC3C13200F9EA0B /* BrowserManager.swift */; settings = {ASSET_TAGS = (); }; };
@@ -50,6 +51,7 @@
 		5841B2A71BD4FB3200B6F41F /* WebSocketManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocketManger.swift; sourceTree = "<group>"; };
 		5841B2AA1BD4FC0800B6F41F /* SSLSecurity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSLSecurity.swift; sourceTree = "<group>"; };
 		5841B2AB1BD4FC0800B6F41F /* WebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocket.swift; sourceTree = "<group>"; };
+		5841B2B01BD5188B00B6F41F /* UIDeviceExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIDeviceExtension.swift; sourceTree = "<group>"; };
 		5850E3D71BD1123600F86871 /* MainQueueExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainQueueExtension.swift; sourceTree = "<group>"; };
 		588BF5D41BC3AB2900F9EA0B /* AdvertiseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvertiseManager.swift; sourceTree = "<group>"; };
 		588BF5D61BC3C13200F9EA0B /* BrowserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserManager.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 				58BE143D1BCE7CD800B08B42 /* NSDataExtension.swift */,
 				5850E3D71BD1123600F86871 /* MainQueueExtension.swift */,
 				5841B2A71BD4FB3200B6F41F /* WebSocketManger.swift */,
+				5841B2B01BD5188B00B6F41F /* UIDeviceExtension.swift */,
 			);
 			path = MultipeerExample;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 				588BF5D91BC3C91000F9EA0B /* SessionManager.swift in Sources */,
 				5896CE981BC27468007D74B1 /* AppDelegate.swift in Sources */,
 				58AA2CB21BCCCEE1006E3A9A /* ServiceIdentifier.swift in Sources */,
+				5841B2B11BD5188B00B6F41F /* UIDeviceExtension.swift in Sources */,
 				58BE143C1BCE757300B08B42 /* User.swift in Sources */,
 				58AA2CC01BCCD49A006E3A9A /* Sample.m in Sources */,
 			);
