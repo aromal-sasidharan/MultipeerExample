@@ -20,13 +20,26 @@ class ViewController: UIViewController {
     var advertiser:AdvertiseManger?
     var browser : BrowserManager?
     var peerIDs :  [String : User] = [:]
-    
+
     @IBOutlet weak var loggerTextView: JRTranscriptView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        WebSocketManger.onSocketUpdate({ (socket) -> () in
+            
+            
+            
+            }, disConnectBlock: { (socket, error) -> () in
+                
+                
+            }, receiveMessageBlock: { (socket, text) -> () in
+                
+                
+            }) { (socket, data) -> () in
+                
+                
+        }
         Logger.setTextView(loggerTextView)
         
         self.contactList.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
@@ -212,7 +225,7 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
         
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell
         
-        cell.textLabel?.text = user.peerID.displayName
+        cell.textLabel?.text = user.peerID?.displayName
         cell.backgroundColor = user.color
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         //        cell.selectionStyle = UITableViewCellSelectionStyle.None
@@ -233,24 +246,24 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
         
         let user = self.peerIDs.objectValueAtIndex(indexPath.row) as User
         
-        print("Clicked peer name is \(user.peerID.displayName)")
+        print("Clicked peer name is \(user.peerID?.displayName)")
         
         
         
-        
+        WebSocketManger.sendString("Hi from \(ServiceIdentifier.peerID().displayName)")
         
         if user.color == UIColor.redColor(){
-            self.browser?.invitePeer(user.peerID, toSession: GhostChatSession.sharedSession, withContext: GhostChatSession.context.dataUsingEncoding(NSUTF8StringEncoding), timeout: 20)
+            self.browser?.invitePeer(user.peerID!, toSession: GhostChatSession.sharedSession, withContext: GhostChatSession.context.dataUsingEncoding(NSUTF8StringEncoding), timeout: 20)
         }
         else if user.color == UIColor.greenColor(){
             
             NSOperationQueue.mainQueue().addOperationWithBlock { () -> Void in
                 
-                self.sendText("Hello", toPeer: user.peerID)
+                self.sendText("Hello", toPeer: user.peerID!)
             }
         }
         
-        self.browser?.invitePeer(user.peerID, toSession: GhostMaster.sharedSession, withContext:GhostMaster.context.dataUsingEncoding(NSUTF8StringEncoding), timeout: 20)
+        self.browser?.invitePeer(user.peerID!, toSession: GhostMaster.sharedSession, withContext:GhostMaster.context.dataUsingEncoding(NSUTF8StringEncoding), timeout: 20)
         
         
         
