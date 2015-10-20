@@ -32,6 +32,7 @@
 		641BFBA61BD4C1680041458E /* ChatCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641BFBA51BD4C1680041458E /* ChatCellTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		641BFBA81BD4F0800041458E /* GhostPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641BFBA71BD4F0800041458E /* GhostPacket.swift */; settings = {ASSET_TAGS = (); }; };
 		641BFBAC1BD50D770041458E /* NSObject+KJSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 641BFBAB1BD50D770041458E /* NSObject+KJSerializer.m */; settings = {ASSET_TAGS = (); }; };
+		641BFBAF1BD537DB0041458E /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 641BFBAE1BD537DB0041458E /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -84,6 +85,8 @@
 		641BFBA71BD4F0800041458E /* GhostPacket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GhostPacket.swift; sourceTree = "<group>"; };
 		641BFBAA1BD50D770041458E /* NSObject+KJSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+KJSerializer.h"; sourceTree = "<group>"; };
 		641BFBAB1BD50D770041458E /* NSObject+KJSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+KJSerializer.m"; sourceTree = "<group>"; };
+		641BFBAD1BD537DB0041458E /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		641BFBAE1BD537DB0041458E /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +186,8 @@
 		641BFBA91BD50CB70041458E /* New Group */ = {
 			isa = PBXGroup;
 			children = (
+				641BFBAD1BD537DB0041458E /* JSONKit.h */,
+				641BFBAE1BD537DB0041458E /* JSONKit.m */,
 				641BFBAA1BD50D770041458E /* NSObject+KJSerializer.h */,
 				641BFBAB1BD50D770041458E /* NSObject+KJSerializer.m */,
 			);
@@ -230,6 +235,7 @@
 				TargetAttributes = {
 					5896CE931BC27468007D74B1 = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = 6G9DC3622W;
 					};
 				};
 			};
@@ -278,14 +284,12 @@
 				588BF5D71BC3C13200F9EA0B /* BrowserManager.swift in Sources */,
 				58FC69071BCB8BFD00AB0C6C /* ArrayExtension.swift in Sources */,
 				5850E3D81BD1123600F86871 /* MainQueueExtension.swift in Sources */,
-
 				641BFBA81BD4F0800041458E /* GhostPacket.swift in Sources */,
-
 				5841B2A81BD4FB3200B6F41F /* WebSocketManger.swift in Sources */,
-
 				588BF5D91BC3C91000F9EA0B /* SessionManager.swift in Sources */,
 				641BFBAC1BD50D770041458E /* NSObject+KJSerializer.m in Sources */,
 				5896CE981BC27468007D74B1 /* AppDelegate.swift in Sources */,
+				641BFBAF1BD537DB0041458E /* JSONKit.m in Sources */,
 				58AA2CB21BCCCEE1006E3A9A /* ServiceIdentifier.swift in Sources */,
 				5841B2B11BD5188B00B6F41F /* UIDeviceExtension.swift in Sources */,
 				58BE143C1BCE757300B08B42 /* User.swift in Sources */,
@@ -408,8 +412,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jeremiah Jacks (8TRPAWAFMG)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jeremiah Jacks (8TRPAWAFMG)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
@@ -419,7 +423,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dbg.ex.multipeer.MultipeerExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "092cb24d-1c36-45d5-908b-6bdef79a0577";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "MultipeerExample/MultipeerExample-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -430,8 +434,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jeremiah Jacks (8TRPAWAFMG)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Jeremiah Jacks (8TRPAWAFMG)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
@@ -441,7 +445,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dbg.ex.multipeer.MultipeerExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "092cb24d-1c36-45d5-908b-6bdef79a0577";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "MultipeerExample/MultipeerExample-Bridging-Header.h";
 			};
 			name = Release;

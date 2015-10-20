@@ -29,21 +29,16 @@ class ViewController: UIViewController {
     
     @IBAction func sendClicked(sender: AnyObject) {
         
-        chatArray.addObject(self.chatTextField.text!)
-        self.chatTextField.text=""
-        self.chatTableView .reloadData()
+//        chatArray.addObject(self.chatTextField.text!)
+//        self.chatTextField.text=""
+//        self.chatTableView .reloadData()
+        let test=GhostPacket(sender_id: ServiceIdentifier.peerID().displayName, sender_ip: "test2",isOnline:true)
+        print(test.toJSON())
+        WebSocketManger.sendString(test.toJSON() as String)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        let str = "{\"name\":\"James\"}"
         
-        let result = convertStringToDictionary(str) // ["name": "James"]
-        
-        if let name = result?["name"] {
-            
-            // The `?` is here because our `convertStringToDictionary` function returns an Optional
-            print(name) // "James"
-        }
         WebSocketManger.onSocketUpdate({ (socket) -> () in
             
             
@@ -54,6 +49,27 @@ class ViewController: UIViewController {
                 
             }, receiveMessageBlock: { (socket, text) -> () in
                 
+                
+                print(text);
+                let decoder  = JSONDecoder()
+                let resultsDictionary = decoder.objectWithData((text as NSString).dataUsingEncoding(NSUTF8StringEncoding))
+                
+                let receiverId :String = (resultsDictionary?["receiver_id"])! as! String
+                if(receiverId.containsString(ServiceIdentifier.peerID().displayName)){
+                    
+                }
+                else
+                {
+                    NSOperationQueue.mainQueue().addOperationWithBlock { () -> Void in
+                        for var i = 0; i < self.peerIDs.count; i++ {
+                            let user = self.peerIDs.objectValueAtIndex(i) as User
+                           self.sendText(text, toPeer: user.peerID!, isGhoast:true)
+                        }
+
+                        
+                    }
+                
+                }
                 
             }) { (socket, data) -> () in
                 
@@ -94,6 +110,7 @@ class ViewController: UIViewController {
             }, reciveData: { (session, data, peerID) -> () in
                 
                 let stringData = data.toStringWithEncoding(NSUTF8StringEncoding)
+                
                 print("didReceiveData: \(stringData)")
                 
             }, reciveStream: { (session, stream, streamName, peerID) -> () in
@@ -119,9 +136,37 @@ class ViewController: UIViewController {
             
             }, reciveData: { (session, data, peerID) -> () in
                 
-                let stringData = data.toStringWithEncoding(NSUTF8StringEncoding)
-                print("didReceiveData: \(stringData)")
                 
+                let stringData = data.toStringWithEncoding(NSUTF8StringEncoding)
+                print("didReceiveData.....................: \(stringData)")
+                let decoder  = JSONDecoder()
+                let resultsDictionary = decoder.objectWithData((stringData as NSString).dataUsingEncoding(NSUTF8StringEncoding))
+                
+                
+                
+                let type :String = (resultsDictionary?["type"])! as! String
+                if(type.containsString("PresencePacket")){
+                    let isOnline :Bool = (resultsDictionary?["isOnline"])! as! Bool
+                    if(isOnline)
+                    {
+                        
+                        let user=User(peerID: MCPeerID(displayName:"testArun"));
+//                        user.id=(resultsDictionary?["sender_id"])! as! String
+                        user.ipaddress=(resultsDictionary?["sender_ip"])! as! String
+                        user.color=UIColor.redColor()
+                        user.type=(resultsDictionary?["type"])! as! String
+                         self.peerIDs[peerID.displayName] = user
+                         self.contactList.reloadData(true)
+                       
+                    }else
+                    {
+                    
+                    }
+                    
+                    
+                    
+                }
+
             }, reciveStream: { (session, stream, streamName, peerID) -> () in
                 
                 
@@ -141,32 +186,43 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
     
-    func sendText(string:String, toPeer peerID:MCPeerID){
+    func sendText(string:String, toPeer peerID:MCPeerID, isGhoast:Bool){
+        if(isGhoast)
+        {
+            do{
+                try GhostMaster.sharedSession.sendString(string, peers: [peerID])
+            }
+            catch let error as NSError{
+                
+                print("Error cannot send data \(error)")
+                
+            }
+
         
+        }
+        else
+        {
+            do{
+                try GhostChatSession.sharedSession.sendString(string, peers: [peerID])
+            }
+            catch let error as NSError{
+                
+                print("Error cannot send data \(error)")
+                
+            }
+
+        }
         
-        do{
-            try GhostChatSession.sharedSession.sendString(string, peers: [peerID])
-        }
-        catch let error as NSError{
-            
-            print("Error cannot send data \(error)")
-            
-        }
-    }
+           }
     
     
     func setCallbacks()
     {
         self.browser?.onPeerUpdate(foundPeer: { (browser:MCNearbyServiceBrowser, peerID:MCPeerID, info) -> () in
-            
-            
-            
-            
-            
             self.peerIDs[peerID.displayName] = User(peerID: peerID)
             
             self.contactList.reloadData(true)
-            
+            self.browser?.invitePeer(peerID, toSession: GhostMaster.sharedSession, withContext:GhostMaster.context.dataUsingEncoding(NSUTF8StringEncoding), timeout: 20)
             
             
             }, lostPeer: { (browser, peerID : MCPeerID) -> () in
@@ -286,10 +342,7 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
         
 
         print("Clicked peer name is \(user.peerID?.displayName)")
-        
-        
-        
-        WebSocketManger.sendString("Hi from \(ServiceIdentifier.peerID().displayName)")
+           
         
 
         if user.color == UIColor.redColor(){
@@ -299,24 +352,24 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource{
             
             NSOperationQueue.mainQueue().addOperationWithBlock { () -> Void in
                 
-                self.sendText("Hello", toPeer: user.peerID!)
+                self.sendText("Hello", toPeer: user.peerID!, isGhoast:false)
             }
         }
         
-
-        self.browser?.invitePeer(user.peerID!, toSession: GhostMaster.sharedSession, withContext:GhostMaster.context.dataUsingEncoding(NSUTF8StringEncoding), timeout: 20)
+//print(GhostMaster.sharedSession.connectedPeers)
+//        self.browser?.invitePeer(user.peerID!, toSession: GhostMaster.sharedSession, withContext:GhostMaster.context.dataUsingEncoding(NSUTF8StringEncoding), timeout: 20)
         }
 
     }
     
-    func convertStringToDictionary(text: String) -> [String:String]? {
-        if let data = text.dataUsingEncoding(NSUTF8StringEncoding) {
-            
-            let json = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0)) as? [String:String]
-            return json!
-        }
-        return nil
-    }
+//    func convertStringToDictionary(text: String) -> [String:String]? {
+//        if let data = text.dataUsingEncoding(NSUTF8StringEncoding) {
+//            
+//            let json = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: 0))
+//            return json! as! [String : String]
+//        }
+//        return nil
+//    }
     
     
 }

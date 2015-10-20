@@ -13,6 +13,7 @@ class User {
     var color:UIColor = UIColor.redColor()
     var ipaddress = ""
     var id = ""
+    var type = ""
     var peerID:MCPeerID?
     init(){
         

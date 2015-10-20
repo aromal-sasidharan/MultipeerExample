@@ -12,5 +12,5 @@
 
 #import "JRTranscriptView.h"
 #import "NSObject+KJSerializer.h"
-
+#import "JSONKit.h"
 #endif /* MultipeerExample_Bridging_Header_h */
